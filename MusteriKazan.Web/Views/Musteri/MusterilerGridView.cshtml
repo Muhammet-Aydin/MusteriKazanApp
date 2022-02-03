@@ -1,0 +1,70 @@
+﻿@using MusteriKazan.Web.Models
+@model List<Musteri>
+@(
+    Html.DevExtreme().DataGrid<Musteri>()
+        .ID("grid")
+        .DataSource(Model, "MusteriId")
+        .FilterRow(f => f.Visible(true))
+        .HeaderFilter(f => f.Visible(true))
+        .DateSerializationFormat("dd-MM-yyyy")
+        .AllowColumnReordering(true)
+        .RowAlternationEnabled(true)
+        .Editing(s => s.AllowUpdating(false).AllowAdding(false).AllowDeleting(false))
+        .KeyExpr(new string[] { "MusteriId" })
+        .Columns(columns =>
+        {
+            columns.AddFor(m => m.Ad);
+            columns.AddFor(m => m.Soyad);
+            columns.AddFor(m => m.Telefon);
+            columns.AddFor(m => m.Eposta);
+            columns.AddFor(m => m.Adres);
+            columns.AddFor(m => m.KayıtTarih);
+            columns.AddFor(m => m.MusteriId).DataField("SMSGonder");
+        })
+        .Paging(p => p.PageSize(20))
+)
+<script type="text/javascript">
+    $(function () {
+        var txt = document.querySelector("#errortext").getAttribute("value");
+        if (txt !== null && txt !== '') {
+            document.querySelector("#infoText").innerHTML = txt;
+            modal.style.display = "block";
+        }
+        $("#grid").dxDataGrid({
+            columns: [
+                { dataField: "Ad", caption: "Ad" },
+                { dataField: "Soyad", caption: "Soyad" },
+                { dataField: "Telefon", caption: "Telefon" },
+                { dataField: "Eposta", caption: "Eposta" },
+                { dataField: "Adres", caption: "Adres" },
+                { dataField: "KayıtTarih", caption: "Kayıt Tarihi" },
+                {
+                    dataField: "SMSGonder", caption: "SMS Gönder", cellTemplate: function (element, info) {
+                        element.append('<div><button style="border: 1px solid #fff;background-color: #17a2b8;color: #fff;padding: 4px;border-radius: 10px; cursor: pointer;" type="submit" id="btn' + info.key + '">SMSGönder</button><button style="border: 1px solid #fff;background-color: #17a2b8;color: #fff;padding: 4px;border-radius: 10px; cursor: pointer;" type="submit" id="btnG' + info.key + '">Güncelle</button></div>');
+                        $("#btn" + info.key).on("click", function () {
+                            redirecturl(info.key);
+                        });
+                        $("#btnG" + info.key).on("click", function () {
+                            guncelle(info.key);
+                        });
+                    }
+                },
+            ]
+        });
+    })
+    function redirecturl(musteriId) {
+        console.log(musteriId)
+        var urll = '@Url.Content("~/Musteri/ReSendSMS")';
+        urll = urll + "?musteriId=" + musteriId;
+        console.log(urll);
+        window.location.href = window.location.origin + urll;
+    }
+    function guncelle(musteriId) {
+        console.log(musteriId)
+        var urll = '@Url.Content("~/Musteri/UpdateMusteri")';
+        urll = urll + "?musteriId=" + musteriId;
+        console.log(urll);
+        window.location.href = window.location.origin + urll;
+    }
+
+</script>

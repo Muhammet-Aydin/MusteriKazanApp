@@ -1,0 +1,78 @@
+﻿@using MusteriKazan.Web.Models
+@model List<Musteri>
+@{
+    ViewBag.Title = "Tum Musteriler";
+}
+
+<div id="musteriler">
+    <div class="container">
+        @TempData["TumMusterilerInfo"].ToString()
+        <div id="musteriler-row" class="row justify-content-center align-items-center">
+            <div id="musteriler-column" class="col-md-12">
+                <div id="musteriler-box" class="col-md-12">
+                    <br />
+                    <h3 class="text-center text-info" style="color: #17a2b8 !important ">Müşteriler Listesi</h3>
+                    <br />
+                    @(
+                    Html.DevExtreme().DataGrid<Musteri>()
+                        .ID("grid")
+                        .DataSource(Model, "MusteriId")
+                        .FilterRow(f => f.Visible(true))
+                        .HeaderFilter(f => f.Visible(true))
+                        .DateSerializationFormat("dd-MM-yyyy")
+                        .AllowColumnReordering(true)
+                        .RowAlternationEnabled(true)
+                        .Editing(s => s.AllowUpdating(false).AllowAdding(false).AllowDeleting(false))
+                        .KeyExpr(new string[] { "MusteriId" })
+                        .Columns(columns =>
+                        {
+                            columns.AddFor(m => m.Ad);
+                            columns.AddFor(m => m.Soyad);
+                            columns.AddFor(m => m.Telefon);
+                            columns.AddFor(m => m.Eposta);
+                            columns.AddFor(m => m.Adres);
+                            columns.AddFor(m => m.IsActive);
+                            columns.AddFor(m => m.AktivasyonTarih);
+                            columns.AddFor(m => m.KayıtTarih);
+                        })
+                        .Paging(p => p.PageSize(20))
+                )
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#grid").dxDataGrid({
+            columns: [
+                { dataField: "Ad", caption: "Ad" },
+                { dataField: "Soyad", caption: "Soyad" },
+                { dataField: "Telefon", caption: "Telefon" },
+                { dataField: "Eposta", caption: "Eposta" },
+                { dataField: "Adres", caption: "Adres" },
+                { dataField: "IsActive", caption: "Durum" },
+                { dataField: "AktivasyonTarih", caption: "Aktivasyon Tarih" },
+                { dataField: "KayıtTarih", caption: "KayıtTarih" }
+            ]
+        });
+    })
+</script>
+<style>
+    #musteriler .container #musteriler-row #musteriler-column #musteriler-box {
+        margin-top: 50px;
+        height: 100%;
+        border: 1px solid #9C9C9C;
+        background-color: #EAEAEA;
+        margin-bottom: 50px;
+    }
+
+        #musteriler .container #musteriler-row #musteriler-column #musteriler-box #musteriler-form {
+            padding: 20px;
+        }
+
+            #musteriler .container #musteriler-row #musteriler-column #musteriler-box #musteriler-form #register-link {
+                margin-top: -85px;
+            }
+</style>
+

@@ -1,0 +1,81 @@
+﻿@using MusteriKazan.Web.Models
+@model MusterilerCount
+
+@{
+    ViewBag.Title = "Kullanıcı Paneli";
+}
+
+<div id="kullaniciPanel">
+    <div class="container">
+        <input type="hidden" value="@TempData["PanelInfo"]" id="errortext" />
+        <div id="kullaniciPanel-row" class="row justify-content-center align-items-center">
+            <div id="kullaniciPanel-column" class="col-md-4" onclick="redirecturl('@Url.Content("~/Musteri/GetPasifMusteriler/")')">
+                <div id="kullaniciPanel-box" class="col-md-12 btnin" style="cursor:pointer;">
+                    <img src="~/img/musteri-onaysiz-liste.png" width="100" height="100" class="mrgngbtm" />
+                    <h3>Aktivasyon Gerçekleşmemiş Müşteriler (@Model.PasifMusterilerCount)</h3>
+                </div>
+            </div>
+            <div id="kullaniciPanel-column" class="col-md-4" onclick="redirecturl('@Url.Content("~/Musteri/GetAktifMusteriler/")')">
+                <div id="kullaniciPanel-box" class="col-md-12 btnin" style="cursor:pointer;">
+                    <img src="~/img/musteri-onayli-liste.png" width="100" height="100" class="mrgngbtm" />
+                    <h3>Aktif Müşteriler (@Model.AktifMusterilerCount)</h3>
+                </div>
+            </div>
+            <div id="kullaniciPanel-column" class="col-md-4" onclick="redirecturl('@Url.Content("~/Musteri/Index")')">
+                <div id="kullaniciPanel-box" class="col-md-12 btnin" style="cursor:pointer;">
+                    <img src="~/img/musteri-kaydet.jpg" width="100" height="100" class="mrgngbtm" />
+                    <h3>Yeni Müşteri Kaydet</h3>
+                </div>
+            </div>
+            <div id="kullaniciPanel-column" class="col-md-4" onclick="redirecturl('@Url.Content("~/Musteri/TumMusteriler")')">
+                <div id="kullaniciPanel-box" class="col-md-12 btnin" style="cursor:pointer;">
+                    <img src="~/img/tum-musteriler.png" width="100" height="100" class="mrgngbtm" />
+                    <h3>Tüm Müşteriler (@Model.TumMusterilerCount)</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var txt = document.querySelector("#errortext").getAttribute("value");
+        if (txt !== null && txt !== '') {
+            document.querySelector("#infoText").innerHTML = txt;
+            modal.style.display = "block";
+        }
+    })
+
+    function redirecturl(url) {
+        window.location.href = url;
+    }       
+</script>
+
+<style>
+    .btnin {
+        text-align: center;
+        padding-top: 15px;
+    }
+
+    .mrgngbtm {
+        margin-bottom: 15px;
+    }
+
+    #kullaniciPanel .container #kullaniciPanel-row #kullaniciPanel-column #kullaniciPanel-box {
+        margin-top: 90px;
+        max-width: 600px;
+        height: 250px;
+        border: 1px solid #9C9C9C;
+        background-color: #EAEAEA;
+        border-radius: 11px;
+    }
+
+        #kullaniciPanel .container #kullaniciPanel-row #kullaniciPanel-column #kullaniciPanel-box #kullaniciPanel-form {
+            padding: 20px;
+        }
+
+            #kullaniciPanel .container #kullaniciPanel-row #kullaniciPanel-column #kullaniciPanel-box #kullaniciPanel-form #register-link {
+                margin-top: -85px;
+            }
+</style>
+

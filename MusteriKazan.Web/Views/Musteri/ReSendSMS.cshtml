@@ -1,0 +1,57 @@
+﻿@model int
+@{
+    ViewBag.Title = "SMS Gönder";
+}
+
+<div id="musteriler">
+    <div class="container">
+        <div id="musteriler-row" class="row justify-content-center align-items-center">
+            <div id="musteriler-column" class="col-md-6">
+                <div id="musteriler-box" class="col-md-12">
+                    <br />
+                    <h3 class="text-center text-info" style="color: #17a2b8 !important ">Aktivasyon Kodu Gönderme Ekranı</h3>
+                    <br />
+                    <input type="hidden" id="errortext" value="@TempData["ReSendSmsError"]" />
+                    @using (Html.BeginForm("ReSendSMSPost", "Musteri", FormMethod.Post))
+                    {
+                        <input type="hidden" name="musteriId" value="@Model" />
+                        <br />
+                        <h5>Müşteri Aktivasyon Kodu yeniden gönderilecek. İşleme devam etmek için lütfen Gönder'e basın.</h5>
+                        <br />
+                        <div class="form-group">
+                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Gönder">
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    #musteriler .container #musteriler-row #musteriler-column #musteriler-box {
+        margin-top: 50px;
+        max-width: 600px;
+        height: 280px;
+        border: 1px solid #9C9C9C;
+        background-color: #EAEAEA;
+    }
+
+        #musteriler .container #musteriler-row #musteriler-column #musteriler-box #musteriler-form {
+            padding: 20px;
+        }
+
+            #musteriler .container #musteriler-row #musteriler-column #musteriler-box #musteriler-form #register-link {
+                margin-top: -85px;
+            }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var txt = document.querySelector("#errortext").getAttribute("value");
+        if (txt !== null && txt !== '') {
+            document.querySelector("#infoText").innerHTML = txt;
+            modal.style.display = "block";
+        }
+    })
+</script>
+

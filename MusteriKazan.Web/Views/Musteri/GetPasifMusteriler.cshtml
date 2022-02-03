@@ -1,0 +1,39 @@
+﻿@using MusteriKazan.Web.Models
+@model List<Musteri>
+@{
+    ViewBag.Title = "Müşteriler";
+}
+
+<div id="musteriler">
+    <div class="container">
+        <div id="musteriler-row" class="row justify-content-center align-items-center">
+            <div id="musteriler-column" class="col-md-12">
+                <div id="musteriler-box" class="col-md-12">
+                    <br />
+                    <h3 class="text-center text-info" style="color: #17a2b8 !important ">Aktivasyon Tamamlamamış Müşteriler Listesi</h3>
+                    <br />
+                    <input type="hidden" value="@TempData["PasifMusterilerInfo"]" id="errortext" />
+                    @Html.Partial("MusterilerGridView", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    #musteriler .container #musteriler-row #musteriler-column #musteriler-box {
+        margin-top: 50px;
+        height: 100%;
+        border: 1px solid #9C9C9C;
+        background-color: #EAEAEA;
+        margin-bottom: 50px;
+    }
+
+        #musteriler .container #musteriler-row #musteriler-column #musteriler-box #musteriler-form {
+            padding: 20px;
+        }
+
+            #musteriler .container #musteriler-row #musteriler-column #musteriler-box #musteriler-form #register-link {
+                margin-top: -85px;
+            }
+</style>

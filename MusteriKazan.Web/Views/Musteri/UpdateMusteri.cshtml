@@ -1,0 +1,86 @@
+﻿@using MusteriKazan.Web.Models
+@model Musteri
+@{
+    ViewBag.Title = "Müşteri Güncelle";
+}
+<div id="musteriler">
+    <div class="container">
+        <div id="musteriler-row" class="row justify-content-center align-items-center">
+            <div id="musteriler-column" class="col-md-6">
+                <div id="musteriler-box" class="col-md-12">
+                    <br />
+                    <h3 class="text-center text-info" style="color: #17a2b8 !important ">Müşteri Güncelle</h3>
+                    <br />
+                    <input type="hidden" value="@TempData["GuncellemeInfo"]" id="errortext" />
+                    @using (Html.BeginForm("UpdateMusteri", "Musteri", FormMethod.Post, new { id = "updateMusteriForm" }))
+                    {
+                        <input type="hidden" name="musteriId" value="@Model.MusteriId" />
+                        <div class="form-group">
+                            <label for="ad" class="text-info">Müşteri Ad:</label><br>
+                            <input type="text" name="ad" id="ad" class="form-control" value="@Model.Ad">
+                        </div>
+                        <div class="form-group">
+                            <label for="soyad" class="text-info">Müşteri Soyad:</label><br>
+                            <input type="text" name="soyad" id="soyad" class="form-control" value="@Model.Soyad">
+                        </div>
+                        <div class="form-group">
+                            <label for="telefon" class="text-info">Telefon</label><br>
+                            <input type="text" name="telefon" id="telefon" class="form-control" value="@Model.Telefon">
+                        </div>
+                        <div class="form-group">
+                            <label for="eposta" class="text-info">E-posta</label><br>
+                            <input type="text" name="eposta" id="eposta" class="form-control" value="@Model.Eposta">
+                        </div>
+                        <div class="form-group">
+                            <label for="adres" class="text-info">Adres</label><br>
+                            <input type="text" name="adres" id="adres" class="form-control" value="@Model.Adres">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Güncelle">
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    #musteriler .container #musteriler-row #musteriler-column #musteriler-box {
+        margin-top: 50px;
+        max-width: 600px;
+        height: 670px;
+        border: 1px solid #9C9C9C;
+        background-color: #EAEAEA;
+    }
+
+        #musteriler .container #musteriler-row #musteriler-column #musteriler-box #musteriler-form {
+            padding: 20px;
+        }
+
+            #musteriler .container #musteriler-row #musteriler-column #musteriler-box #musteriler-form #register-link {
+                margin-top: -85px;
+            }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var txt = document.querySelector("#errortext").getAttribute("value");
+        if (txt !== null && txt !== '') {
+            document.querySelector("#infoText").innerHTML = txt;
+            modal.style.display = "block";
+        }
+
+        $("#updateMusteriForm").validate({
+            rules: {
+                ad: "required",
+                soyad: "required",
+                telefon: "required",
+                adres: "required",
+                eposta: {
+                    required: true,
+                    email: true
+                }
+            }
+        });
+    })
+</script>

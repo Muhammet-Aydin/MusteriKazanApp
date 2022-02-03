@@ -1,0 +1,71 @@
+﻿@using MusteriKazan.Web.Models
+@model Musteri
+@{
+    ViewBag.Title = "Aktivasyon Kodu Dogrulama";
+}
+
+<div id="aktivasyon">
+    <div class="container">
+        <div id="aktivasyon-row" class="row justify-content-center align-items-center">
+            <div id="aktivasyon-column" class="col-md-6">
+                <div id="aktivasyon-box" class="col-md-12">
+                    <br />
+                    <h3 class="text-center text-info" style="color: #17a2b8 !important ">Müşteri Aktivasyon Ekranı</h3>
+                    <br />
+                    <input type="hidden" value="@TempData["Error"]" id="errortext" />
+                    @using (Html.BeginForm("Aktivasyon", "Musteri", FormMethod.Post))
+                    {
+                        @*<br />
+                            <h3 class="text-center text-info">SMS Doğrulama</h3>
+                            <br />*@
+                        <label style="padding-bottom:15px; padding-top:15px; font-size:15px;">
+                            @Model.Ad @Model.Soyad için aktivasyon kodu @Model.Telefon numaralı telefona gönderilmiştir. Lütfen gelen aktivasyon kodunu aşağıya yazarak aktivasyon işlemini tamamlayınız.
+                        </label>
+                        <input type="hidden" value="@Model.MusteriId" name="musteriId" />
+                        <div class="form-group">
+                            @*<label for="ad" class="text-info">Aktivasyon Kodu :</label><br>*@
+                            <input type="text" name="kod" id="kod" class="form-control">
+                        </div>
+                        <div class="form-group" style="text-align: right;">
+                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Aktive Et">
+                        </div>
+                    }
+                    <div class="form-group" style="position: absolute; bottom: 0;">
+                        @using (Html.BeginForm("UpdateKod", "Musteri", FormMethod.Post))
+                        {
+                            <input type="hidden" value="@Model.MusteriId" name="musteriId" />
+                            <input type="submit" name="submit" class="text-info" value="Aktivasyon kodu SMS olarak gelmediyse tekrar göndermek için lütfen tıklayın" style="font-size: 13px; text-decoration:underline; border: 0; cursor: pointer;">
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    #aktivasyon .container #aktivasyon-row #aktivasyon-column #aktivasyon-box {
+        margin-top: 50px;
+        max-width: 600px;
+        height: 450px;
+        border: 1px solid #9C9C9C;
+        background-color: #EAEAEA;
+    }
+
+        #aktivasyon .container #aktivasyon-row #aktivasyon-column #aktivasyon-box #aktivasyon-form {
+            padding: 20px;
+        }
+
+            #aktivasyon .container #aktivasyon-row #aktivasyon-column #aktivasyon-box #aktivasyon-form #register-link {
+                margin-top: -85px;
+            }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var txt = document.querySelector("#errortext").getAttribute("value");
+        if (txt !== null && txt !== '') {
+            document.querySelector("#infoText").innerHTML = txt;
+            modal.style.display = "block";
+        }
+    })
+</script>
