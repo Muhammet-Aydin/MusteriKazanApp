@@ -20,7 +20,7 @@ namespace MusteriKazan.Api.Controllers
         {
             _kullaniciService = new KullaniciManager();
             _configuration = configuration;
-            //_kullaniciLog = new KullaniciLogger();
+           
         }
 
         [HttpPost("Login/{kullaniciadi}/{sifre}")]
